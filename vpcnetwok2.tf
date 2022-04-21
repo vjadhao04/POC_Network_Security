@@ -6,8 +6,8 @@ resource "google_compute_network" "vpc_network2" {
 resource "google_compute_subnetwork" "vpc2_subnet1" {
   name          = "vpc2-subnet-1"
   network       = google_compute_network.vpc_network2.name
-  region = "us-central1"
-  ip_cidr_range = "168.192.1.0/24"
+  region = "europe-west1"
+  ip_cidr_range = "10.10.11.0/24"
   
   
  
@@ -15,7 +15,7 @@ resource "google_compute_subnetwork" "vpc2_subnet1" {
 
 
 resource "google_compute_firewall" "vpc_network2_firewall" {
-  name    = "firewallvpc2"
+  name    = "firewall-vpc2"
   network =google_compute_network.vpc_network2.name
   priority = 1000
   source_ranges = ["0.0.0.0/0"] 
@@ -30,8 +30,8 @@ resource "google_compute_firewall" "vpc_network2_firewall" {
 
 module "vm1_in_vpc2" {
   source              = "./instance"
-  instance_name       = "vm1invpc2"
-  instance_zone       = "us-central1-a"
+  instance_name       = "vm1-in-vpc2"
+  instance_zone       = "europe-west1-b"
   instance_network = "${google_compute_network.vpc_network2.self_link}"
   instance_subnetwork = "${google_compute_subnetwork.vpc2_subnet1.self_link}"
   instance_tags = ["http-server","vm3"]

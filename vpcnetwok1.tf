@@ -7,7 +7,7 @@ resource "google_compute_subnetwork" "vpc_subnet1" {
   name          = "vpc1-subnet-1"
   network       = "${google_compute_network.vpc_network1.self_link}"
   region = "us-central1"
-  ip_cidr_range = "168.130.1.0/24"
+  ip_cidr_range = "10.10.1.0/24"
   
   
  depends_on = [
@@ -19,7 +19,7 @@ resource "google_compute_subnetwork" "vpc_subnet2" {
   network       = "${google_compute_network.vpc_network1.self_link}"
   region = "us-west2"
   
-  ip_cidr_range = "10.0.0.0/22"
+  ip_cidr_range = "10.11.2.0/24"
   
   
  depends_on = [
@@ -31,7 +31,7 @@ resource "google_compute_subnetwork" "vpc_subnet2" {
 
 resource "google_compute_firewall" "vpc_network1_firewall" {
   name    = "vpc-network1-firewall"
-  network       =google_compute_network.vpc_network1.name
+  network =google_compute_network.vpc_network1.name
   priority = 1000
   source_ranges = ["0.0.0.0/0"] 
   allow {
