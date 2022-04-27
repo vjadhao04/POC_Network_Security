@@ -1,1 +1,1 @@
-{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"vm1_in_vpc1","Source":"./instance","Dir":"instance"},{"Key":"vm1_in_vpc2","Source":"./instance","Dir":"instance"},{"Key":"vm2_in_vpc1","Source":"./instance","Dir":"instance"}]}
+{"Modules":[{"Key":"vm1_in_vpc1","Source":"./instance","Dir":"instance"},{"Key":"vm1_in_vpc2","Source":"./instance","Dir":"instance"},{"Key":"vm2_in_vpc1","Source":"./instance","Dir":"instance"},{"Key":"vm2_in_vpc2","Source":"./instance","Dir":"instance"},{"Key":"","Source":"","Dir":"."}]}

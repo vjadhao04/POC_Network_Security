@@ -1,6 +1,7 @@
 variable "instance_name" {}
 variable "instance_zone" {}
 
+
 variable "instance_type" {
   default = "e2-micro"
 }
@@ -19,6 +20,8 @@ resource "google_compute_instance" "vm_instance" {
   name         = var.instance_name
   zone         = var.instance_zone
   machine_type = var.instance_type
+ 
+
   tags=var.instance_tags
   metadata_startup_script=var.metadata_startup_script
   boot_disk {
@@ -31,7 +34,7 @@ resource "google_compute_instance" "vm_instance" {
     #network = 
     subnetwork ="${var.instance_subnetwork}"
     access_config {
-      
+       
     }
   }
 
