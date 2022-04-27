@@ -6,7 +6,7 @@ resource "google_compute_network" "vpc_network2" {
 resource "google_compute_subnetwork" "vpc2_subnet1" {
   name          = "vpc2-subnet-1"
   network       = google_compute_network.vpc_network2.name
-  region = "europe-west1"
+  region        = "europe-west1"
   ip_cidr_range = "15.0.0.0/24"
   
   
@@ -15,8 +15,8 @@ resource "google_compute_subnetwork" "vpc2_subnet1" {
 
 
 resource "google_compute_firewall" "vpc_network2_firewall" {
-  name    = "firewall-vpc2"
-  network =google_compute_network.vpc_network2.name
+  name     = "firewall-vpc2"
+  network  = google_compute_network.vpc_network2.name
   priority = 1000
   source_ranges = ["0.0.0.0/0"] 
   allow {
@@ -24,7 +24,7 @@ resource "google_compute_firewall" "vpc_network2_firewall" {
     ports    = ["22","80","1000-2000"]
   }
   allow{
-      protocol="icmp"
+      protocol = "icmp"
   }
 }
 
@@ -32,15 +32,15 @@ module "vm1_in_vpc2" {
   source              = "./instance"
   instance_name       = "vm1-in-vpc2"
   instance_zone       = "europe-west1-b"
-  instance_network = "${google_compute_network.vpc_network2.self_link}"
+  instance_network    = "${google_compute_network.vpc_network2.self_link}"
   instance_subnetwork = "${google_compute_subnetwork.vpc2_subnet1.self_link}"
-  instance_tags = ["http-server","vm3"]
+  instance_tags       = ["http-server","vm3"]
   #installing apache server
   metadata_startup_script = "sudo apt-get update && sudo apt-get install apache2 -y && echo '<!doctype html><html><body><h1>Hello World!</h1></body></html>' | sudo tee /var/www/html/index.html"
 
     #Apply the firewall rule to allow external IPs to access this instance
   #tags = ["http-server"]
-  instance_email  = google_service_account.service_account.email
+  instance_email    = google_service_account.service_account.email
     instance_scopes = ["cloud-platform"]
 	
   
@@ -50,15 +50,15 @@ module "vm2_in_vpc2" {
   source              = "./instance"
   instance_name       = "vm2-in-vpc2"
   instance_zone       = "europe-west1-b"
-  instance_network = "${google_compute_network.vpc_network2.self_link}"
+  instance_network    = "${google_compute_network.vpc_network2.self_link}"
   instance_subnetwork = "${google_compute_subnetwork.vpc2_subnet1.self_link}"
-  instance_tags = ["http-server","vm3"]
+  instance_tags       = ["http-server","vm3"]
   #installing apache server
   metadata_startup_script = "sudo apt-get update && sudo apt-get install apache2 -y && echo '<!doctype html><html><body><h1>Hello World!</h1></body></html>' | sudo tee /var/www/html/index.html"
 
     #Apply the firewall rule to allow external IPs to access this instance
   #tags = ["http-server"]
-  instance_email  = google_service_account.service_account.email
+  instance_email    = google_service_account.service_account.email
     instance_scopes = ["cloud-platform"]
 	
   
